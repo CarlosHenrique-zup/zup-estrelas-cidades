@@ -84,9 +84,13 @@ public class Cidade {
 	}
 
 	public String toString() {
-		return "Cidade [cep=" + cep + ", nome=" + nome + ", nro_habitantes=" + nro_habitantes + ",capital= " + capital
-				+ ", estado " + estado + ", renda_per_capita=" + renda_per_capita + ", data_fundação=" + data_fundacao
+		return "Cidade - [cep = " + cep + ", nome = " + nome + ", nro_habitantes = " + nro_habitantes + ", capital = " + capital
+				+ ", estado = " + estado + ", renda_per_capita = " + renda_per_capita + ", data_fundação = " + data_fundacao
 				+ " ]";
+	}
+	
+	public String imprimirRegistroPorCep() {
+		return "Cidade = [cep = " + cep + ", nome = " + nome + ", estado " + estado + "]";
 	}
 
 }

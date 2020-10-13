@@ -18,15 +18,15 @@ public class ProgramaPrincipal {
 		System.out.println("|||||||||||||||| [CIDADES] ||||||||||||||||||");
 		System.out.println("=============================================");
 		System.out.println("|                                           |");
-		System.out.println("|    [1] - LISTA DE CIDADES                 |");
-		System.out.println("|    [2] - REMOVE CIDADE                    |");
-		System.out.println("|    [3] - RETORNAR CIDADE PELO CEP         |");
-		System.out.println("|    [4] - PESQUISA CIDADES PELO NOME       |");
-		System.out.println("|    [5] - LISTA CIDADES PELA SIGLA         |");
-		System.out.println("|    [6] - QUANTIDADE DE CIDADES POR ESTADO |");
-		System.out.println("|    [7] - CIDADES POR COLUNA DA CAPITAL    |");
-		System.out.println("|    [8] - FILTRAR CIDADES                  |");
-		System.out.println("|    [9] - INSERIR CIDADES                  |");
+		System.out.println("|    [1] - LISTAR CIDADES                   |");
+		System.out.println("|    [2] - REMOVER CIDADE                   |");
+		System.out.println("|    [3] - RETORNAR CIDADE (CEP)            |");
+		System.out.println("|    [4] - PESQUISAR CIDADES (NOME)         |");
+		System.out.println("|    [5] - LISTAR CIDADES (SIGLA)           |");
+		System.out.println("|    [6] - QUANTIDADE DE CIDADES (ESTADO)   |");
+		System.out.println("|    [7] - FILTRAR CIDADES (CAPITAL)        |");
+		System.out.println("|    [8] - INSERIR CIDADES                  |");
+		System.out.println("|    [9] - VOLTAR AO MENU                   |");
 		System.out.println("|    [0] - SAIR DO PROGRAMA                 |");
 		System.out.println("|                                           |");
 		System.out.println("=============================================");
@@ -51,6 +51,7 @@ public class ProgramaPrincipal {
 		System.out.println("=============================================");
 		System.out.println("|       [REMOVA UMA CIDADE PELO CEP]        |");
 		System.out.println("=============================================");
+		System.out.print("\n");
 		System.out.print("NÚMERO DO CEP: ");
 		int numeroCep = sc.nextInt();
 
@@ -62,6 +63,7 @@ public class ProgramaPrincipal {
 		System.out.println("=============================================");
 		System.out.println("|        [RETORNE A CIDADE PELO CEP]        |");
 		System.out.println("=============================================");
+		System.out.print("\n");
 		System.out.println("USUÁRIO, ");
 		System.out.print("INFORME O SEU CEP: ");
 		int numeroCep = sc.nextInt();
@@ -73,6 +75,7 @@ public class ProgramaPrincipal {
 		System.out.println("=============================================");
 		System.out.println("|        [ESCOLHA UM NOME DE CIDADE]        |");
 		System.out.println("=============================================");
+		System.out.print("\n");
 		System.out.println("USUÁRIO, ");
 		System.out.print("INFORME O NOME DA CIDADE: ");
 		String nomeCidade = sc.next();
@@ -80,15 +83,18 @@ public class ProgramaPrincipal {
 	}
 
 	public static void listaDeCidadesPelaSigla(Scanner sc) {
-
 		System.out.println("=============================================");
 		System.out.println("|       [LISTE UMA CIDADE PELA SIGLA]       |");
 		System.out.println("=============================================");
+		System.out.print("\n");
 		System.out.println("USUÁRIO, ");
 		System.out.print("INFORME A SIGLA DA CIDADE: ");
 		String siglaCidade = sc.next();
 
-		cidadeDao.listarCidadeSigla(siglaCidade);
+		List<Cidade> cidadeBD = cidadeDao.listarCidadeSigla(siglaCidade);
+		for (Cidade cidadeSigla : cidadeBD) {
+			System.out.println(cidadeSigla);
+		}
 	}
 
 	public static void quantidadeDeCidadesDoEstado(Scanner sc) {
@@ -96,6 +102,7 @@ public class ProgramaPrincipal {
 		System.out.println("=============================================");
 		System.out.println("|     [QUANTIDADE DE CIDADES DO ESTADO]     |");
 		System.out.println("=============================================");
+		System.out.print("\n");
 		System.out.println("USUÁRIO, ");
 		System.out.print("INFORME A SIGLA DA CIDADE: ");
 		String siglaCidade = sc.next();
@@ -107,19 +114,24 @@ public class ProgramaPrincipal {
 		System.out.println("=============================================");
 		System.out.println("|        [FILTRA CIDADES POR CAPITAL]       |");
 		System.out.println("=============================================");
+		System.out.print("\n");
 		System.out.println("USUÁRIO, ");
-		System.out.println("INFORME A CIDADE POR CAPITAL: ");
+		System.out.print("INFORME A CIDADE POR CAPITAL: ");
 		boolean cidadeCapital = sc.nextBoolean();
 
-		cidadeDao.filtraCidades(cidadeCapital);
+//		cidadeDao.filtraCidades(cidadeCapital);
+
+		List<Cidade> cidadeBD = cidadeDao.filtraCidades(cidadeCapital);
+		for (Cidade cidadeSigla : cidadeBD) {
+			System.out.println(cidadeSigla);
+		}
 	}
 
 	public static void inserirCidade(Scanner sc) throws SQLException {
-
 		System.out.println("=============================================");
 		System.out.println("|           [ADICIONE SUA CIDADE]           |");
 		System.out.println("=============================================");
-
+		System.out.print("\n");
 		System.out.print("\nQUANTIDADE DE CIDADES: ");
 		int qtdCidade = sc.nextInt();
 
@@ -164,9 +176,12 @@ public class ProgramaPrincipal {
 
 	public static void main(String[] args) throws SQLException {
 
+		Cidade cidade = new Cidade();
 		Scanner sc = new Scanner(System.in);
 		int opcaoUsuario;
+		int opcaoPessoa;
 		final String DETALHAMENTO = "=============================================";
+		final String OPCAOINVALIDA = "OPÇÃO INVALIDA!";
 
 		menuOpcoes();
 
@@ -233,6 +248,9 @@ public class ProgramaPrincipal {
 				} catch (InputMismatchException e) {
 					System.out.println(e.getMessage());
 				}
+				break;
+			case 9:
+				menuOpcoes();
 				break;
 			case 0:
 				fimDoPrograma();

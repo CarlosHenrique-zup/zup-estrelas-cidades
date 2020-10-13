@@ -37,7 +37,9 @@ public class CidadeDAO {
 		System.out.print("\n");
 	}
 
-	/* 9 - FUNCIONA */
+	/*
+	 * Inserir cidades pelos dados informados
+	 */
 	public boolean insereCidade(Cidade cidade) throws SQLException {
 		String sqlInsercao = "insert into cidade"
 				+ "(cep,nome,nro_habitantes, capital, estado, renda_per_capita,data_fundacao)"
@@ -60,8 +62,11 @@ public class CidadeDAO {
 		return true;
 	}
 
-	/* 7 - CERTO */
-	public static void whilePadraoCidade(ResultSet rs, List<Cidade> cidades) throws SQLException {
+	/*
+	 * 7 - Adicione ao DAO a funcionalidade de remover uma cidade passando como
+	 * parâmetro seu número de cep.
+	 */
+	private static void whilePadraoCidade(ResultSet rs, List<Cidade> cidades) throws SQLException {
 
 		while (rs.next()) {
 
@@ -78,7 +83,9 @@ public class CidadeDAO {
 		}
 	}
 
-	/* 1 - FUNCIONA */
+	/*
+	 * 1 - Crie no seu CidadeDAO o método de listagem de cidades sem filtros.
+	 */
 	public List<Cidade> listaCidades() {
 		List<Cidade> cidades = new ArrayList<Cidade>();
 
@@ -100,7 +107,10 @@ public class CidadeDAO {
 		return cidades;
 	}
 
-	/* 2 - FUNCIONA */
+	/*
+	 * 2 - Adicione ao DAO a funcionalidade de remover uma cidade passando como
+	 * parâmetro seu número de cep.
+	 */
 	public boolean removeCidade(int cep) {
 
 		String sqlRemove = "delete from cidade " + "where cep = ?";
@@ -122,7 +132,10 @@ public class CidadeDAO {
 		return true;
 	}
 
-	/* 3 - CERTO */
+	/*
+	 * 3 - Crie no seu DAO um método que é capaz de retornar uma cidade com base no
+	 * seu número de cep.
+	 */
 	public List<Cidade> selecaoPorCep(int cep) {
 
 		List<Cidade> cidades = new ArrayList<>();
@@ -150,7 +163,10 @@ public class CidadeDAO {
 		return cidades;
 	}
 
-	/* 4 - CERTO */
+	/*
+	 * 4 - Crie um método que é capaz de pesquisar cidades cujos nomes se iniciam
+	 * por um texto passado como parâmetro.
+	 */
 	public List<Cidade> listarCidadePorNome(String nome) {
 
 		List<Cidade> cidades = new ArrayList<>();
@@ -177,7 +193,10 @@ public class CidadeDAO {
 		return cidades;
 	}
 
-	/* 5 - CERTO */
+	/*
+	 * 5 - Crie um método que é capaz de listar cidades filtradas pela sigla de
+	 * estado.
+	 */
 	public List<Cidade> listarCidadeSigla(String sigla) {
 
 		List<Cidade> cidades = new ArrayList<>();
@@ -206,7 +225,10 @@ public class CidadeDAO {
 		return cidades;
 	}
 
-	/* 6 - CERTO */
+	/*
+	 * 6 - Crie um método que recebe a sigla de um estado e retorna a quantidade de
+	 * cidades daquele estado.
+	 */
 	public List<Cidade> quantidadeCidadesEstado(String sigla) {
 		int contadorCidades = 0;
 		List<Cidade> cidades = new ArrayList<>();
@@ -237,12 +259,15 @@ public class CidadeDAO {
 		return cidades;
 	}
 
-	/* 8 */
+	/*
+	 * 8 - Crie um método que filtra cidades pela coluna capital, onde o valor do
+	 * filtro é passado como parâmetro.
+	 */
 	public List<Cidade> filtraCidades(boolean capital) {
 
 		List<Cidade> cidades = new ArrayList<>();
 
-		String sqlFiltra = "select * from cidade c where c.capital";
+		String sqlFiltra = "select * from cidade c where c.capital = ?";
 
 		try {
 			PreparedStatement imprimir = connection.prepareStatement(sqlFiltra);
@@ -255,6 +280,7 @@ public class CidadeDAO {
 			whilePadraoCidade(rs, cidades);
 
 			resultadoBusca(cidades);
+			System.out.println(cidades);
 
 			imprimir.close();
 		} catch (SQLException e) {
